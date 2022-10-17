@@ -13,7 +13,7 @@ function displayData() {
     im[0].src = `https://www.countryflagicons.com/FLAT/64/${app.Iso3Name.toUpperCase()}.png`;
     im[1].src = `https://www.countryflagicons.com/FLAT/64/${app.Iso3Name.toUpperCase()}.png`;
     getCity();
-    // AllCountries();
+    AllCountries();
 }
 let dropMenu = document.querySelector(".dropdown-menu");
 let countryName = document.querySelector(".region h5");
