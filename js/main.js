@@ -4,16 +4,17 @@ var app = {
     NameOfCountry: "Egypy",
     Iso3Name: "EG",
     CapitalCity: "Cairo",
-    tealView: this.CapitalCity,
+    days:4,
 }
-
+AllCountries();
 function displayData() {
     countryName.innerHTML = app.NameOfCountry;
     countryName.setAttribute("iso2-Name", app.Iso3Name)
     im[0].src = `https://www.countryflagicons.com/FLAT/64/${app.Iso3Name.toUpperCase()}.png`;
     im[1].src = `https://www.countryflagicons.com/FLAT/64/${app.Iso3Name.toUpperCase()}.png`;
     getCity();
-    AllCountries();
+    model();
+    
 }
 let dropMenu = document.querySelector(".dropdown-menu");
 let countryName = document.querySelector(".region h5");
@@ -87,7 +88,7 @@ async function getCity() {
                         `;
                     
                 } else {
-                    console.log("dont worry")
+                    // console.log("dont worry")
                 }
         } else {
             for (let i = 0; i < cit.length; i++) {
@@ -112,7 +113,9 @@ async function getCity() {
         let citesList = document.querySelectorAll(".myCites li");
         for(let i=0 ;i<citesList.length;i++){
             citesList[i].addEventListener("click", function(e){
-                console.log(e);
+                let select =citesList[i].querySelector("h6");
+                model(select.innerHTML);
+                // console.log(select);
             })
         }
         
@@ -124,14 +127,34 @@ async function getCity() {
 }
 
 // AllCountries();
-function model(){
+async function model(n=app.CapitalCity,d=app.days){
 
     let thisDay= document.querySelector(".main-day");
     let thisDate =document.querySelector(".date");
     let thisDayPram =document.querySelector(`.weahterPram`);
     let more =document.querySelector(".moreInfo");
 
-
+    let forcast = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=0905567266db456987580924221110&q=${n}&aqi=no&days=${d}`)
+        if (forcast.ok && 400 != forcast.status) {
+            forcast = await forcast.json();
+            let temp = forcast.current.temp_c;
+            thisDayPram.innerHTML=`
+            <h2 class="fw-bolder">${forcast.location.name}</h2>
+                                    <p class="main-day-degree">${temp}<sup class="text-warning">o</sup>C</p>
+                                    <div>
+                                        <h2 class="mb-0">${forcast.current.condition.text}</h2>
+                                        <img src="${forcast.current.condition.icon}" alt="" >
+                                    </div>
+            `;
+            more.innerHTML=`
+                                    <span><img src="images/icon-umberella.png" alt=""> ${forcast.current.wind_degree}%</span>
+                                    <span><img src="images/icon-compass.png" alt=""> ${forcast.current.wind_dir}</span>
+                                    <span><img src="images/icon-wind.png" alt=""> ${forcast.current.wind_kph}Km/h</span>
+            `
+            // console.log(forcast.forecast)
+        }
+        
+    
 }
 
-// model()
+
