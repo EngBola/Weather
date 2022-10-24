@@ -10,6 +10,8 @@ var app = {
 
 const months = ["January","February","March","April","May","Jun","July","August","September","October","November","December"];
 const dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+let thisDayIs = app.today.getUTCDay();
+
 AllCountries();
 function displayData() {
     countryName.innerHTML = app.NameOfCountry;
@@ -61,11 +63,11 @@ async function getCity() {
                     forcast = await forcast.json();
                     let temp = forcast.current.temp_c;
                     listcity += `
-                        <li class="d-flex justify-content-between text-white-50 p-1" >
                         <a href="#weather-state" class="text-decoration-none">
+                        <li class="d-flex justify-content-between text-white-50 p-1" >
                         <h6>${app.NameOfCountry}</h6>
-                        <p>${temp}<sup>o</sup></p></a>
-                        </li>
+                        <p>${temp}<sup>o</sup></p>
+                        </li></a>
                         `;
                 } else {
                     // console.log("dont worry")
@@ -106,7 +108,7 @@ async function getCity() {
 
 async function model(n=app.CapitalCity,d=app.days){
 
-    let thisDay= document.querySelector(".main-day");
+    // let thisDay= document.querySelector(".main-day");
     let thisDate =document.querySelector(".date");
     let thisDayPram =document.querySelector(`.weahterPram`);
     let more =document.querySelector(".moreInfo");
@@ -115,9 +117,10 @@ async function model(n=app.CapitalCity,d=app.days){
     let forcast = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=0905567266db456987580924221110&q=${n}&aqi=no&days=${d}`)
         if (forcast.ok && 400 != forcast.status) {
             forcast = await forcast.json();
-            // console.log(new Date(forcast.location.localtime_epoch))
             let temp = forcast.current.temp_c;
-            thisDate.innerHTML= forcast.current.last_updated;
+            thisDate.innerHTML=`<h4>${dayName[thisDayIs]}</h4>
+            <h4><span class="bg-white text-dark">${app.today.getDate()}</span> ${months[app.today.getMonth()]}</h4>
+            `
             thisDayPram.innerHTML=`
             <h2 class="fw-bolder">${forcast.location.name}</h2>
                                     <p class="main-day-degree">${temp}<sup class="text-warning">o</sup>C</p>
@@ -138,8 +141,8 @@ async function model(n=app.CapitalCity,d=app.days){
                         <div class="col-sm-4">
                             <div class="main-day container mb-2 p-2 ">
                                 <div class=" d-flex flex-wrap justify-content-around align-items-center rounded-top p-2 bg-dark text-white-50">
-                                    <h6>Satarday</h6>
-                                    <h6><span class="bg-light  rounded-2 text-dark">${allDays[i].date}</span> October</h6>
+                                    <h6>${dayName[new Date(allDays[i].date).getUTCDay()]}</h6>
+                                    <h6><span class=" fs-6  text-white">${new Date(allDays[i].date).getDate()}</span> ${months[new Date(allDays[i].date).getMonth()]}</h6>
                                 </div>
                                 <div class="  px-2 test-center text-dark">
                                     <h4 class="">${allDays[i].day.avgtemp_c}<sup class="text-warning">o</sup>C</h4>
@@ -172,7 +175,6 @@ let loder = document.querySelector(".cites .loding")
 let notOk =(s)=>{
     let t 
     if(s==true){
-        // console.log("ok")
         loder.classList.replace("d-none","d-block");
         t = 1000;
     }else{
@@ -190,21 +192,6 @@ for(let i=0;i<filter.length;i++){
     model(app.curentSelect,this.value)
     })
 }
-
-
-(function(){
-    let thisDay = dayName[new Date().getUTCDay()];
-    console.log(thisDay)
-    let ti =app.today.getMonth();
-    for(let i=0;i<12;i++){
-    if(ti<12){
-        console.log(months[ti++])
-    }else{
-        ti=0;
-        console.log(months[ti++])
-    }
-    }
-})()
 
 let search= document.querySelector(".find .btn");
 let find = document.querySelector(".find input");
