@@ -15,6 +15,7 @@
 }
 nav .container {
     height: 150px;
+    z-index: 9999999999;
 }
 
 nav a img {
@@ -77,6 +78,7 @@ nav a:hover {
 }
 .filter{
     top: 40%;
+    z-index: 2000;
 }
 .filter li{
     position: relative;
@@ -117,23 +119,63 @@ nav a:hover {
     font-weight: 600;
     font-family: 'Kalam', cursive;
 }
-.subHours{
+.days img{
+    width:50px
+}
+.days span{
+    font-size: 0.8rem;
+}
+/* .subHours{
     box-shadow: 0px 0px 0px 0.5px rgba(0, 0, 0, 0.2);
     font-size: 0.9rem;
     font-weight: 300;
     padding:2px 0px;
     overflow: hidden;
-}
+} */
 .cites {
-    height: 96vh;
+    min-height: fit-content;
+    max-height: 75vh;
     overflow: hidden;
+    position: relative;
+
 }
 
 .myCites {
-    height: 92%;
+    min-height: fit-content;
+    max-height: 90%;
     overflow-y: auto;
 }
-
+/* .loding::after{
+    content: "";
+    width: 100%;
+    background-color: #1a1e217c;
+    max-height: inherit;
+    position: absolute;
+    top: 0;
+    bottom: -100%;
+    right: 0;
+    left: 0;
+    z-index: 90000;
+} */
+.loding{
+    z-index: 100;
+    position: absolute;
+    top: 10%;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #1a1e21a9;
+    /* display: block; */
+}
+.crcl{
+    position: absolute;
+    top:40%;
+    right: calc((100%+25px)/2);
+    width:20px;
+    height: 20px;
+    display: none;
+    /* z-index: 10000; */
+}
 .myCites li {
     background-image: var(--bgh-grad);
     cursor: pointer;
