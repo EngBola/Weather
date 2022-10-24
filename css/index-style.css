@@ -227,7 +227,10 @@ footer p {
         font-size: 1.1rem;
     }
     .tilte-logo p{
-        font-size: 0.9rem;
+        font-size: 0.8rem;
+    }
+    nav .region h5{
+        font-size: 0.9rem !important;
     }
     .filter{
         top: 36%;
