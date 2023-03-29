@@ -16,7 +16,7 @@ var app = {
 const months = ["January","February","March","April","May","Jun","July","August","September","October","November","December"];
 const dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 let thisDayIs = app.today.getUTCDay();
-var key = "881f37940a8649e2b1e101942232903";
+
 AllCountries();
 function displayData() {
     countryName.innerHTML = app.NameOfCountry;
@@ -67,6 +67,7 @@ async function getCity() {
         let listcity = "";
         if (cit.length < 1 ) {
             listcity = app.location;
+            var key = "881f37940a8649e2b1e101942232903";
             let forcast = await fetch(`https://api.weatherapi.com/v1/current.json?key=${key}&q=${listcity}&aqi=no`)
                 if (forcast.ok && 400 != forcast.status) {
                     forcast = await forcast.json();
@@ -83,6 +84,7 @@ async function getCity() {
                 }
         } else {
             for (let i = 0; i < cit.length; i++) {
+                var key = "881f37940a8649e2b1e101942232903";
                 let forcast = await fetch(`https://api.weatherapi.com/v1/current.json?key=${key}&q=${cit[i].latitude},${cit[i].longitude}&aqi=no`)
                 if (forcast.ok && 400 != forcast.status) {
                     forcast = await forcast.json();
@@ -126,7 +128,7 @@ async function model(n=app.CapitalCity,d=app.days){
     let thisDayPram =document.querySelector(`.weahterPram`);
     let more =document.querySelector(".moreInfo");
     let mordays =document.querySelector(".days");
-
+    var key = "881f37940a8649e2b1e101942232903";
     let forcast = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${key}&q=${n}&aqi=no&days=${d}`)
         if (forcast.ok && 400 != forcast.status) {
             forcast = await forcast.json();
