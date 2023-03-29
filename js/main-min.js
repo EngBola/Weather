@@ -16,7 +16,7 @@ var app = {
 const months = ["January","February","March","April","May","Jun","July","August","September","October","November","December"];
 const dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 let thisDayIs = app.today.getUTCDay();
-
+var key = "881f37940a8649e2b1e101942232903";
 AllCountries();
 function displayData() {
     countryName.innerHTML = app.NameOfCountry;
@@ -58,7 +58,7 @@ async function AllCountries() {
         }
     }
 }
-const key = "881f37940a8649e2b1e101942232903";
+
 async function getCity() {
     let city = await fetch(`./countries.json`)
     if (city.ok && 400 != city.status) {
